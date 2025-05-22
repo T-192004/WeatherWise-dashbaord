@@ -1,18 +1,21 @@
-.weather-dashboard{
+/* Main Dashboard Container */
+.weather-dashboard {
     width: 95%;
-    flex-wrap: wrap;
     display: flex;
     flex-direction: row;
-    align-items: center;
-    align-items: center;
     flex-wrap: wrap;
+    align-items: center;
     justify-content: center;
-    margin :20px;
+    margin: 20px;
 }
-img{
+
+/* Weather icons and condition images */
+img {
     width: 40px;
 }
-.detail-card{
+
+/* Generic styling for all info cards */
+.detail-card {
     background-color: #444444;
     padding: 16px;
     border-radius: 12px;
@@ -20,7 +23,9 @@ img{
     box-shadow: #000 5px 5px;
     min-height: 260px;
 }
-.loc-date-detail{
+
+/* Location and Date Section */
+.loc-date-detail {
     width: 30%;
     display: flex;
     flex-direction: column;
@@ -28,102 +33,130 @@ img{
     align-items: center;
     text-align: center;
 }
-.loc-date-detail .time{
+
+.loc-date-detail .time {
     font-size: 44px;
-    gap: 0;
-    line-height: 1.2;
     font-weight: bold;
+    line-height: 1.2;
 }
-.loc-date-detail .day-date{
+
+.loc-date-detail .day-date {
     line-height: 0;
-    gap: 0;
 }
-.weather-detail{
+
+/* Main Weather Info Section */
+.weather-detail {
     display: flex;
     justify-content: space-around;
     align-items: center;
     width: 50%;
 }
-.sun-temp{
+
+/* Left Side: Temperature and Sun Info */
+.sun-temp {
     width: 400px;
 }
-.temp-detail h1{
+
+.temp-detail h1 {
     font-size: 49px;
     line-height: 0;
 }
-.temp-detail p{
+
+.temp-detail p {
     font-size: 16px;
 }
-.temp-detail span{
+
+.temp-detail span {
     font-size: 34px;
     font-weight: bold;
 }
-.sun-details{
+
+/* Sunrise and Sunset Rows */
+.sun-details {
     display: flex;
     align-items: center;
     margin: 10px;
 }
-.sun-details p{
-    line-height: 0.6;
+
+.sun-details p {
     margin-left: 10px;
+    line-height: 0.6;
 }
-.weather-descp{
+
+/* Right Side: Weather Description */
+.weather-descp {
     width: 240px;
     margin: 20px;
     text-align: center;
 }
-.weather-descp p{
+
+.weather-descp p {
     font-size: 24px;
     font-weight: 600;
 }
-.weather-descp img{
+
+.weather-descp img {
     width: 140px;
 }
-.weather-extra{
+
+/* Extra Weather Info (Humidity, Wind, etc.) */
+.weather-extra {
     display: flex;
     flex-wrap: wrap;
 }
-.weather-extra .other-detail{
+
+.weather-extra .other-detail {
     width: 120px;
     margin: 10px;
     text-align: center;
 }
-.weather-icon{
+
+.weather-icon {
     font-size: 28px;
 }
-.other-detail p{
+
+.other-detail p {
     font-size: 16px;
 }
-.five-day-details{
+
+/* 5-Day Forecast Styles */
+.five-day-details {
     width: 25%;
     text-align: center;
 }
-.forecast-detail{
+
+.forecast-detail {
     display: flex;
-    text-align: center;
     align-items: center;
     justify-content: space-between;
+    text-align: center;
 }
-.hourly-details{
+
+/* Hourly Forecast Section */
+.hourly-details {
     width: 50%;
     text-align: center;
 }
-.hour-detail{
+
+.hour-detail {
     display: flex;
 }
-.hour-forecast{
+
+.hour-forecast {
     background-color: #373636;
     opacity: 1;
     border-radius: 30px;
     padding: 8px;
     text-align: center;
     width: 120px;
-    margin: 0px 10px 0px 10px;
+    margin: 0 10px;
 }
-.hour-forecast h2{
+
+.hour-forecast h2 {
     font-size: 18px;
 }
-.hour-forecast p{
+
+.hour-forecast p {
     font-size: 14px;
     font-weight: 600;
 }

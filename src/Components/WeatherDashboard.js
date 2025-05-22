@@ -1,53 +1,58 @@
+// Import necessary icons from react-icons
 import { FiSunrise, FiSunset } from "react-icons/fi";
 import { FaWater, FaWind } from "react-icons/fa";
 import { MdSpeed } from "react-icons/md";
 import { TbUvIndex } from "react-icons/tb";
+
+// React hooks
 import { useEffect, useState } from "react";
 import './WeatherDashboard.css';
 
+// Main WeatherDashboard component
 const WeatherDashboard = ({ weather, location, astro, hourlyForecast, fiveDayForecast }) => {
+  // State for tracking and updating local time
   const [localTime, setLocalTime] = useState(new Date(location.localtime));
   const currentHour = new Date(location.localtime).getHours();
+
+  // Update local time every second
   useEffect(() => {
-    // Start interval to update time every second
     const interval = setInterval(() => {
       setLocalTime(prevTime => new Date(prevTime.getTime() + 1000));
     }, 1000);
-
-    return () => clearInterval(interval); // Clean up
+    return () => clearInterval(interval); // Cleanup on component unmount
   }, []);
-  // Filter to show only the next 5 future hours
 
+  // Filter hourly forecast to include only the next 5 future hours
   const futureHourlyForecast = hourlyForecast
-    .filter(hour => new Date(hour.time).getHours() >= currentHour) // Only future hours
-    .slice(0, 5); // Get the next 5 hours
+    .filter(hour => new Date(hour.time).getHours() >= currentHour)
+    .slice(0, 5);
 
   return (
     <div className="weather-dashboard">
       
-      {/* Location & Time Details */}
+      {/* Location & Local Time Display */}
       <div className="loc-date-detail detail-card">
         <h2 className="loc">{location.name}, {location.region}</h2>
         <h1 className="time">{localTime.toTimeString().slice(0, 8)}</h1>
         <p className="day-date">{new Date(location.localtime).toLocaleDateString("en-US", { 
-            weekday: "long", 
-            year: "numeric", 
-            month: "long", 
-            day: "numeric" 
+          weekday: "long", 
+          year: "numeric", 
+          month: "long", 
+          day: "numeric" 
         })}</p>
       </div>
 
-      {/* Weather Details */}
+      {/* Current Weather Section */}
       <div className="weather-detail detail-card">
         <div className="sun-temp">
           
-          {/* Temperature */}
+          {/* Temperature Info */}
           <div className="temp-detail">
             <h1 className="temp">{weather.temp_c}°C</h1>
             <p>Feels like: <span>{weather.feelslike_c}°C</span></p>
           </div>
 
-          {/* Sunrise & Sunset */}
+          {/* Sunrise Info */}
           <div className="sun-details">
             <FiSunrise className="weather-icon" />
             <div>
@@ -55,6 +60,8 @@ const WeatherDashboard = ({ weather, location, astro, hourlyForecast, fiveDayFor
               <p>{astro.sunrise}</p>
             </div>
           </div>
+
+          {/* Sunset Info */}
           <div className="sun-details">
             <FiSunset className="weather-icon"/>
             <div>
@@ -64,13 +71,13 @@ const WeatherDashboard = ({ weather, location, astro, hourlyForecast, fiveDayFor
           </div>
         </div>
 
-        {/* Weather Description */}
+        {/* Weather Description with Icon */}
         <div className="weather-descp">
           <img src={weather.condition.icon} alt="weather icon" />
           <p>{weather.condition.text}</p>
         </div>
 
-        {/* Additional Weather Info */}
+        {/* Additional Weather Metrics */}
         <div className="weather-extra">
           <div className="other-detail">
             <FaWater className="weather-icon" />
@@ -95,7 +102,7 @@ const WeatherDashboard = ({ weather, location, astro, hourlyForecast, fiveDayFor
         </div>
       </div>
 
-      {/* 5-Day Forecast */}
+      {/* Five Day Weather Forecast Section */}
       <div className="five-day-details detail-card">
         <h1>5 Days Forecast:</h1>
         {fiveDayForecast.map((day, index) => (
@@ -107,7 +114,7 @@ const WeatherDashboard = ({ weather, location, astro, hourlyForecast, fiveDayFor
         ))}
       </div>
 
-      {/* Next 5 Hours Forecast */}
+      {/* Hourly Weather Forecast Section */}
       <div className="hourly-details detail-card">
         <h1>Next 5 Hours Forecast:</h1>
         <div className="hour-detail">

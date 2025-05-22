@@ -1,34 +1,40 @@
-
-
 import { useState, useEffect } from "react";
 import { BsSearch } from "react-icons/bs";
 import WeatherDashboard from "./Components/WeatherDashboard";
 import './App.css';
 
-
+// Replace with your actual API key
 const weatherApiKey = "2c9a98ef9b7b478694d121858250104";
-function App() {
-  const [loc, setLoc] = useState("Gwalior");
-  const [searchLoc, setSearchLoc] = useState("Gwalior"); // Store user input for searching
-  const [weather, setWeather] = useState(null);
-  const [resultLocation, setResultLocation] = useState(null);
-  const [astro, setAstro] = useState(null);
-  const [hourlyForecast, setHourlyForecast] = useState([]);
-  const [fiveDayForecast, setFiveDayForecast] = useState([]);
 
-  // Function to fetch weather data based on location
+function App() {
+  // Default location for initial fetch
+  const [loc, setLoc] = useState("Gwalior");
+
+  // Stores user input before clicking search
+  const [searchLoc, setSearchLoc] = useState("Gwalior");
+
+  // Weather-related state variables
+  const [weather, setWeather] = useState(null);                // Current weather data
+  const [resultLocation, setResultLocation] = useState(null);  // Location metadata (name, country, etc.)
+  const [astro, setAstro] = useState(null);                    // Astronomical info (sunrise/sunset)
+  const [hourlyForecast, setHourlyForecast] = useState([]);    // Hourly weather forecast
+  const [fiveDayForecast, setFiveDayForecast] = useState([]);  // 5-day weather forecast
+
+  // Function to fetch weather data from WeatherAPI
   const fetchWeatherData = async (location) => {
     try {
       const forecastRes = await fetch(
-        `http://api.weatherapi.com/v1/forecast.json?key=${weatherApiKey}&q=${location}&days=5`
+        `https://api.weatherapi.com/v1/forecast.json?key=${weatherApiKey}&q=${location}&days=5`
       );
       const forecastData = await forecastRes.json();
 
+      // Check if the API returned an error
       if (forecastData.error) {
         alert("Location not found. Please enter a valid city.");
         return;
       }
 
+      // Set weather-related state
       setWeather(forecastData.current);
       setResultLocation(forecastData.location);
       setAstro(forecastData.forecast.forecastday[0].astro);
@@ -39,36 +45,34 @@ function App() {
     }
   };
 
-  // Fetch weather when the component loads and when `loc` changes
+  // Fetch weather on component mount and whenever `loc` changes
   useEffect(() => {
     fetchWeatherData(loc);
   }, [loc]);
 
-  // Handle search button click
+  // Handle click on search button
   const handleSearch = () => {
-    setLoc(searchLoc); // Update `loc` to trigger useEffect
+    setLoc(searchLoc); // This triggers useEffect to refetch data
   };
 
   return (
     <div className="bg-container">
       <header className="header">
-        {/* Search Input */}
+        {/* Search Bar for entering city name */}
         <div className="search-location">
           <input
             type="text"
             placeholder="Search for your preferred city..."
             value={searchLoc}
-            onChange={(e) => setSearchLoc(e.target.value)}
+            onChange={(e) => setSearchLoc(e.target.value)} // Update search input
           />
           <button onClick={handleSearch}>
             <BsSearch size={20} />
           </button>
         </div>
-
-  
       </header>
 
-      {/* Weather Dashboard */}
+      {/* Weather Dashboard: Render only when all data is available */}
       <div>
         {weather && resultLocation && astro && hourlyForecast.length > 0 && fiveDayForecast.length > 0 ? (
           <WeatherDashboard
@@ -87,4 +91,3 @@ function App() {
 }
 
 export default App;
-
