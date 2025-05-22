@@ -3,6 +3,9 @@
 A React-based Weather Dashboard application that provides real-time weather updates, a 5-day forecast, and hourly weather information for any searched city. This app uses the [WeatherAPI](https://www.weatherapi.com/) to fetch accurate and up-to-date weather data.
 
 ---
+ 
+## Wesbite Url - 
+    https://weatherwisedashboard.netlify.app/
 
 ## 🚀 Features
 
